@@ -1,0 +1,10 @@
+com/wisdom/product/services/ProductService.class
+com/wisdom/product/dto/ProductRequest$ProductRequestBuilder.class
+com/wisdom/product/controllers/ProductController.class
+com/wisdom/product/repositories/ProductRepository.class
+com/wisdom/product/dto/ProductResponse$ProductResponseBuilder.class
+com/wisdom/product/models/Product$ProductBuilder.class
+com/wisdom/product/ProductApplication.class
+com/wisdom/product/dto/ProductResponse.class
+com/wisdom/product/models/Product.class
+com/wisdom/product/dto/ProductRequest.class

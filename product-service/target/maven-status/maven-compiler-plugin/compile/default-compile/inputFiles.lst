@@ -1,0 +1,7 @@
+/home/drwise/Documents/Study/microservices/microservices-new/product-service/src/main/java/com/wisdom/product/repositories/ProductRepository.java
+/home/drwise/Documents/Study/microservices/microservices-new/product-service/src/main/java/com/wisdom/product/models/Product.java
+/home/drwise/Documents/Study/microservices/microservices-new/product-service/src/main/java/com/wisdom/product/controllers/ProductController.java
+/home/drwise/Documents/Study/microservices/microservices-new/product-service/src/main/java/com/wisdom/product/ProductApplication.java
+/home/drwise/Documents/Study/microservices/microservices-new/product-service/src/main/java/com/wisdom/product/dto/ProductRequest.java
+/home/drwise/Documents/Study/microservices/microservices-new/product-service/src/main/java/com/wisdom/product/services/ProductService.java
+/home/drwise/Documents/Study/microservices/microservices-new/product-service/src/main/java/com/wisdom/product/dto/ProductResponse.java

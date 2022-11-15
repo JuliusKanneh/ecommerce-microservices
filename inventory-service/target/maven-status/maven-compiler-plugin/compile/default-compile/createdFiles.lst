@@ -1,0 +1,5 @@
+com/wisdomtech/inventoryservice/service/InventoryService.class
+com/wisdomtech/inventoryservice/controller/InventoryController.class
+com/wisdomtech/inventoryservice/repository/InventoryRepository.class
+com/wisdomtech/inventoryservice/model/Inventory.class
+com/wisdomtech/inventoryservice/InventoryServiceApplication.class
