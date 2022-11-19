@@ -1,6 +1,6 @@
 package com.wisdomtech.orderservice.service;
 
-import com.wisdomtech.orderservice.config.WebClientConfig;
+import com.wisdomtech.orderservice.dto.InventoryResponse;
 import com.wisdomtech.orderservice.dto.OrderLineItemDto;
 import com.wisdomtech.orderservice.dto.OrderRequest;
 import com.wisdomtech.orderservice.model.Order;
@@ -9,7 +9,9 @@ import com.wisdomtech.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final WebClientConfig webClient;
+    private final WebClient webClient;
 
     public void placeOrder(OrderRequest orderRequest){
         Order order = new Order();
@@ -32,16 +34,24 @@ public class OrderService {
 
         order.setOrderLineItems(orderLineItems);
 
+        List<String> skuCodes = order.getOrderLineItems()
+                .stream()
+                .map(OrderLineItem::getSkuCode)
+                .toList();
+
         //call inventory service to check if product exist. If exists, make order otherwise, handle exception.
         //use webclient to make a synchronous request
 
-        Boolean result = webClient.webClient().get()
-                .uri("http://localhost:9091/api/inventory")
+        InventoryResponse[] inventoryResponseArray = webClient.get()
+                .uri("http://localhost:9091/api/inventory",
+                        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
-                .bodyToMono(Boolean.class)
+                .bodyToMono(InventoryResponse[].class)
                 .block();
 
-        if (result){
+        boolean allProductInStock = Arrays.stream(inventoryResponseArray).allMatch(InventoryResponse::getIsInStock);
+
+        if (allProductInStock){
             orderRepository.save(order);
         }else {
             throw new IllegalArgumentException("Product not in stock, please try again later");
