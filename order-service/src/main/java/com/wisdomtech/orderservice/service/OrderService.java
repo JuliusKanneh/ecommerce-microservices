@@ -21,7 +21,7 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest){
         Order order = new Order();
@@ -42,8 +42,8 @@ public class OrderService {
         //call inventory service to check if product exist. If exists, make order otherwise, handle exception.
         //use webclient to make a synchronous request
 
-        InventoryResponse[] inventoryResponseArray = webClient.get()
-                .uri("http://localhost:9091/api/inventory",
+        InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
+                .uri("http://inventory-service/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)
